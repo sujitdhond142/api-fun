@@ -33,20 +33,6 @@
     <div class="container">
         <div class="jumbotron-fluid text-center pt-4">
             <h1 class="display-4 mt-4 mb-5">Chuck Norris Facts</h1>
-            <div class="col-lg-8 m-auto">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="lead font-italic" id="chuckNorrisFact">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat incidunt aperiam soluta inventore, voluptas quisquam perspiciatis molestiae autem dignissimos quod."</p>
-                        <div class="">
-                            <!-- <button class="btn btn-light clipboard" onclick="copyToClipboard('#chuckNorrisFact')">Copy</button> -->
-                            <!-- <button class="btn btn-primary " onclick="copyToClipboard('#chuckNorrisFact')">Copy Fact</button> -->
-                        </div>
-                    </div>
-                    <div class="card-footer bg-white ">
-                        <button class="btn btn-primary" title="Copy To Clipboard" data-toggle="tooltip" onclick="copyToClipboard('#chuckNorrisFact');changeTitle(this,'Copied','Copy To Clipboard')">Copy Fact</button>
-                    </div>
-                </div>
-            </div>
             <!-- <p class="lead font-italic" id="chuckNorrisFact">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat incidunt aperiam soluta inventore, voluptas quisquam perspiciatis molestiae autem dignissimos quod."</p> -->
         </div>
         <div class="row col-lg-6 m-auto">
@@ -55,7 +41,7 @@
                     <option value="null">Category</option>
                 </select>
             </div>
-            <div class="col-sm-6 mt-4 mb-4">
+            <div class="col-sm-6 mt-4">
                 <button class="btn btn-primary col" id="submit_button" onclick="fetchFact()">
                     <div class="spinner">
                         <div class="bounce1"></div>
@@ -63,12 +49,66 @@
                         <div class="bounce3"></div>
                     </div>
                     <div class="btntext">
-                        Another Random Fact !
+                        Random Fact !
                     </div>
                 </button>
             </div>
         </div>
+        <div class="text-center mt-4">
+            OR
+        </div>
+        <div class="row col-lg-6 m-auto">
+            <div class="col-sm-6 mt-4">
+                <input class="form-control " id="searchFactInput" type="search" placeholder="Search" aria-label="Search">
+                <div id="search_error" class="text-danger">
+                </div>
+            </div>
+            <div class="col-sm-6 mb-4 mt-4">
+                <!-- <button class="btn col btn-primary" id="searchFactButton">Search Fact</button> -->
+                <button class="btn btn-primary col" id="searchFactButton" onclick="searchFact()">
+                    <div class="spinner">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <div class="btntext">
+                        Search Chuck Norris Fact
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div id="randomFact" class="random-fact text-center">
+            <div class="col-lg-6 m-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="lead font-italic" id="chuckNorrisFact">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat incidunt aperiam soluta inventore, voluptas quisquam perspiciatis molestiae autem dignissimos quod."</p>
+                    </div>
+                    <div class="card-footer bg-white ">
+                        <button class="btn btn-primary" title="Copy To Clipboard" data-toggle="tooltip" onclick="copyToClipboard('#chuckNorrisFact');changeTitle(this,'Copied','Copy To Clipboard')">Copy Fact</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="searchCards" class="search-cards py-4">
+            <div id="searchStatus" class="h3 text-center">
+                Search Results
+            </div>
+        </div>
+        <div id="searchPagination" class="text-center px-3 py-4">
+            <ul class="pagination pagination-lg col-lg-6 m-auto px-2">
+                <li class="page-item"><button id="pagFirst" class="page-link" >First</button></li>
+                <li class="page-item"><button id="pagPrev" class="page-link" >Prev</button></li>
 
+                <!-- <li class="page-item"><button id="pagMinusTwo" class="page-link" >1</button></li>
+                <li class="page-item"><button id="pagMinusOne" class="page-link" >2</button></li>
+                <li class="page-item"><button id="pagCurrent" class="page-link" >3</button></li>
+                <li class="page-item"><button id="pagPlusOne" class="page-link" >4</button></li>
+                <li class="page-item"><button id="pagPlusTwo" class="page-link" >5</button></li> -->
+                
+                <li class="page-item"><button id="pagNext" class="page-link" >Next</button></li>
+                <li class="page-item"><button id="pagLast" class="page-link" >Last</button></li>
+            </ul>
+        </div>
     </div><!-- end of container -->
 
 
@@ -83,20 +123,31 @@
 <script src="assets/js/popper.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script>
+
+    //global variables for pagination
+    var resultPerPage = 10;
+    var totalRecords = 0;
+    var page = 1;
+    var totalPages = 0;
+    var records ;
+
     // console.log("test 101");
     $(document).ready(function(){
         //run following functions after document load
-        // fetchCategories();
-        // fetchFact();
+        fetchCategories();
+        fetchFact();
         // $("#submit_button").click(fetchFact());
+        // resultPerPage=$()
+        $("#searchPagination").hide();
+        $('[data-toggle="tooltip"]').tooltip();
+        bindPaginationControl();
 
-        $('[data-toggle="tooltip"]').tooltip()
     });
     function fetchCategories(){
         $.get({
             url: "https://api.chucknorris.io/jokes/categories"
         }).done(function(data){
-            console.log(data);
+            // console.log(data);
             for(i=0;i<data.length;i++){
                 var optionNode = document.createElement('option');
                 optionNode.text = data[i];
@@ -108,6 +159,9 @@
         });
     }
     function fetchFact(){
+        $("#randomFact").show();
+        $("#searchCards").hide();
+        $("#searchPagination").hide();
         $("#submit_button").attr("disabled",true);
         $("#submit_button .spinner").show();
         $("#submit_button .btntext").hide();
@@ -124,7 +178,7 @@
             $("#submit_button").attr("disabled",false);
             $("#submit_button .spinner").hide();
             $("#submit_button .btntext").show();
-            console.log(data);
+            // console.log(data);
             $("#chuckNorrisFact").text(data.value);
         }).fail(function(){
             alert("Error occurred")
@@ -141,6 +195,167 @@
         $(element).attr('data-original-title',newTitle)
                   .tooltip('show')
                   .attr('data-original-title',oldTitle);
+    }
+    function searchFact(){
+        $("#randomFact").hide();
+        $("#searchCards").show();
+        $("#searchCards").children().not("#searchStatus").remove();
+        searchKey = "";
+        searchKey = $("#searchFactInput").val().trim();
+        if(searchKey.length<=2){
+            // console.log("Plese enter at least 3 characters.");
+            $("#search_error").text("Enter at least 3 characters.");
+        }else{
+            $("#search_error").text("");
+            $('#searchStatus').text("Searching...");
+
+            $("#searchFactButton").attr("disabled",true);
+            $("#searchFactButton .spinner").show();
+            $("#searchFactButton .btntext").hide();
+
+            requestURL = "https://api.chucknorris.io/jokes/search?query="+searchKey;
+
+            $.get({
+                url: requestURL
+            }).done(function(data){
+                $("#searchFactButton").attr("disabled",false);
+                $("#searchFactButton .spinner").hide();
+                $("#searchFactButton .btntext").show();
+                // console.log(data);
+
+                if(data.total == 0){
+                    $('#searchStatus').text("No facts for: "+searchKey);
+                }else{
+
+                    //limit no of results to given limit
+                    totalRecords = data.total;
+                    page = 1;
+                    totalPages = Math.ceil(totalRecords/resultPerPage);
+                    records = data;
+                    // console.log("total : "+totalRecords+" page : "+page+" totalPages : "+totalPages);
+
+                    maxLength = data.total <= resultPerPage ? data.total : resultPerPage;
+                    $('#searchStatus').text("Showing "+totalRecords+" Result for: "+searchKey);
+                    if(data.total <= resultPerPage){
+                        $("#searchPagination").hide();
+                        for(i=0;i<maxLength;i++){
+                            createSearchCard(data,i);
+                        }
+                        $('[data-toggle="tooltip"]').tooltip();
+                    }else{
+                        $("#searchPagination").show();
+                        showResults(1,data)
+                    }
+
+                }
+            }).fail(function(){
+                alert("Error occurred")
+            });        
+
+        }
+    }
+    function createSearchCard(data,i){
+        var mainCardNode = document.createElement('div');
+        mainCardNode.classList = 'col-lg-6 m-auto py-3';
+
+        var cardNode = document.createElement('div');
+        cardNode.className = 'card';
+
+        var cardBodyNode = document.createElement('div')
+        cardBodyNode.className = 'card-body';
+
+        var cardFooterNode = document.createElement('div')
+        cardFooterNode.classList = 'card-footer bg-white';
+
+        var paraNode = document.createElement('p');
+        paraNode.classList = 'lead font-italic';
+        paraNode.setAttribute('data-copy-text-id',(i+1));
+        var textNode = document.createTextNode(data.result[i].value);
+        paraNode.appendChild(textNode);
+
+        var buttonNode = document.createElement('button');
+        buttonNode.classList= 'btn btn-primary';
+        buttonNode.setAttribute('data-copy-button-id',(i+1));
+        buttonNode.setAttribute('data-toggle','tooltip');
+        buttonNode.setAttribute('title','Copy To Clipboard')
+        textNode = document.createTextNode("Copy Fact");
+        buttonNode.setAttribute('onclick',"copyToClipboard2(this,'Copied','Copy To Clipboard')");
+        buttonNode.appendChild(textNode);
+        
+
+        cardBodyNode.appendChild(paraNode);
+        cardFooterNode.appendChild(buttonNode);
+        cardNode.appendChild(cardBodyNode);
+        cardNode.appendChild(cardFooterNode);
+        mainCardNode.appendChild(cardNode);
+        $("#searchCards").append(mainCardNode);
+
+    }
+    function copyToClipboard2(element,newTitle,oldTitle){
+        // console.log("inside function");
+        var id = $(element).attr('data-copy-button-id');
+        var $temp = $("<input>");
+        $("body").append($temp);
+        temptext = $('[data-toggle="'+id+'"]').text();
+        // console.log(temptext);
+        $temp.val($('[data-copy-text-id="'+id+'"]').text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+
+        $(element).attr('data-original-title',newTitle)
+                .tooltip('show')
+                .attr('data-original-title',oldTitle);
+
+    }
+    function showResults(page,data){
+        start = (page-1)*resultPerPage;
+        end = start+resultPerPage <= totalRecords ? start+resultPerPage : totalRecords;
+        $("#searchCards").children().not("#searchStatus").remove();
+        // console.log('start--'+start+'end--'+end+"totalpages--"+totalPages);
+        // console.log(data);
+        for(i=start;i<end;i++){
+            createSearchCard(data,i);
+        }
+        $('[data-toggle="tooltip"]').tooltip();
+        updatePagination();
+    }
+    function bindPaginationControl(){
+        $("#pagNext").on('click',function(e){
+            page=page+1;
+            showResults(page,records);
+        });
+        $("#pagPrev").on('click',function(e){
+            page=page-1;
+            showResults(page,records);
+        });
+        $("#pagFirst").on('click',function(){
+            page=1;
+            showResults(page,records);
+        })
+        $("#pagLast").on('click',function(){
+            page=totalPages;
+            showResults(page,records);
+        })
+    }
+
+    function checkPagNext(){
+        if(page>=totalPages){
+            $("#pagNext").attr('disabled',true);
+        }else{
+            $("#pagNext").attr('disabled',false);
+        }
+    }
+    function checkPagPrev(){
+        if(page<=1){
+            $("#pagPrev").attr('disabled',true);
+        }else{
+            $("#pagPrev").attr('disabled',false);
+        }
+    }
+
+    function updatePagination(){
+        checkPagPrev();
+        checkPagNext();
     }
 </script>
 

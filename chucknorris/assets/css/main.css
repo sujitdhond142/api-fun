@@ -1,3 +1,22 @@
+.search-cards{
+  margin: auto;
+  text-align: center;
+  display: none;
+}
+.search-card-helper{
+  margin: auto;
+  padding: 10px 15px;
+}
+.search-card{  
+  padding: 10px 15px;
+  text-align: center;
+}
+.search-card .search-card-text{
+  font-style: italic;
+}
+.search-card .search-card-button{
+  width: 16.66%;
+}
 
 .clipboard{
   position: absolute;

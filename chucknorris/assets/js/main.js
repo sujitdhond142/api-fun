@@ -172,25 +172,25 @@ function searchFact(){
 function createSearchCard(records,i){
 
     var mainCardNode = document.createElement('div');
-    mainCardNode.classList = 'col-lg-6 m-auto py-3';
+    mainCardNode.className = 'col-lg-6 m-auto py-3';
 
     var cardNode = document.createElement('div');
-    cardNode.classList = 'card bg-transparent';
+    cardNode.className = 'card bg-transparent';
 
     var cardBodyNode = document.createElement('div')
     cardBodyNode.className = 'card-body';
 
     var cardFooterNode = document.createElement('div')
-    cardFooterNode.classList = 'card-footer';
+    cardFooterNode.className = 'card-footer';
 
     var paraNode = document.createElement('p');
-    paraNode.classList = 'lead font-italic';
+    paraNode.className = 'lead font-italic';
     paraNode.setAttribute('data-copy-text-id',(i+1));
     var textNode = document.createTextNode(records[i].value);
     paraNode.appendChild(textNode);
 
     var buttonNode = document.createElement('button');
-    buttonNode.classList= 'btn btn-primary';
+    buttonNode.className= 'btn btn-primary';
     buttonNode.setAttribute('data-copy-button-id',(i+1));
     buttonNode.setAttribute('data-toggle','tooltip');
     buttonNode.setAttribute('title','Copy To Clipboard')

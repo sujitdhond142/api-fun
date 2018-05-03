@@ -12,7 +12,7 @@ function fetchCategories(){
             $("#chuckNorrisCategories").append(optionNode);
         }
     }).fail(function(){
-        console.log("Error occurred")
+        console.warn("Error occurred while fetching categories")
     });
 }
 
@@ -47,6 +47,8 @@ function fetchFact(){
         $("#chuckNorrisFact").text(data.value);
 
     }).fail(function(){
+        console.error("Error occurred in fetcing fact");
+        $("#errorModal").modal('show');
         $("#submit_button").attr("disabled",false);
         $("#submit_button .spinner").hide();
         $("#submit_button .btntext").show();
@@ -81,15 +83,21 @@ function searchFact(){
 
     // get search key
     searchKey = "";
+    var patternSearchKey = "^[A-Za-z0-9.,\=\'\"\ \-\+\/\&\(\)]+$";
     searchKey = $("#searchFactInput").val().trim();
     if(searchKey.length<=2){
         // console.log("Plese enter at least 3 characters.");
         $("#search_error").text("Enter at least 3 characters.");
 
     }else{
+        if(!searchKey.match(patternSearchKey)){
+            $("#search_error").text("Some Special characters like ! @ % _ < > are not allowed");
+            return;
+        }else{
+            $("#search_error").text("");
+        }
 
         // change text of certain elements
-        $("#search_error").text("");
         $('#searchStatus').text("Searching...");
 
         // show loader and hide button text
@@ -144,8 +152,18 @@ function searchFact(){
 
             }
         }).fail(function(){
-            console.log("Error occurred")
-        });        
+            console.error("Error occurred while searching fact")
+            $("#errorModal").modal('show');
+
+            // hide loader and show button text
+            $("#searchFactButton").attr("disabled",false);
+            $("#searchFactButton .spinner").hide();
+            $("#searchFactButton .btntext").show();
+
+            //get rid of searching result status
+            $("#searchStatus").text("");
+            $("#searchPagination").hide();
+        });
 
     }
 }

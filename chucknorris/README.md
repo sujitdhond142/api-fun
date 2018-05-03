@@ -9,7 +9,7 @@ Find thounsands (yes you read that right) of Chuck Norris facts/jokes.
 - Want to get nearly all of chuck norris jokes? Type **Chuck** or **Norris** in search box and click search button. Also note that this will take some time.
 
 ## Demo
->You can visit [Chuck Norris Facts](sujitdhond.com/api-fun/chucknorris) to see it in action.
+>You can visit [Chuck Norris Facts](https://sujitdhond.com/api-fun/chucknorris) to see it in action.
 
 
 ## How to use

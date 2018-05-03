@@ -1,3 +1,28 @@
+.theme-change{
+  /* background: #663399;
+  color: #fff; */
+}
+.theme-purple{
+  background: #663399;
+  color: #fff;
+}
+.theme-inherit{
+  background: inherit;
+  color: inherit;
+}
+.theme-dark{
+  background: #333;
+  color: #fff;
+}
+.theme-light{
+  background: #fff;
+  color: #333;
+}
+
+input[type="search"]::placeholder {
+  color: inherit;
+  opacity: 0.6;
+}
 .search-cards{
   margin: auto;
   text-align: center;

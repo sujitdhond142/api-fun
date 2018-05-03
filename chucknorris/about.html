@@ -1,24 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Find chuck norris facts .Chuck Norris that have become an Internet phenomenon and as a result have become widespread in popular culture. ">
-
-    <meta property="og:title" content="API-FUN | Chuck Norris Facts">
-    <meta property="og:image" content="https://assets.chucknorris.host/img/avatar/chuck-norris.png">
-    <meta property="og:description" content="Find chuck norris facts on sujitdhond.com ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>About | Chuck Norris Api </title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="assets/css/main.css">
 
-    <title>API-FUN | Chuck Norris Facts</title>
 </head>
-<body id="themeChanger" class="theme-light">
+<body id="themeChanger" class="">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="index.html">ChuckNorrisFacts</a>
@@ -88,90 +82,76 @@
         </div>
     </nav>
     <div class="container">
-        <div class="jumbotron-fluid text-center pt-4">
-            <h1 class="display-4 mt-4 mb-5">Chuck Norris Facts</h1>
-        </div>
-        <div class="row col-lg-6 m-auto">
-            <div class="col-sm-6 mt-4">
-                <select class="form-control theme-inherit" id="chuckNorrisCategories">
-                    <option value="null">Category</option>
-                </select>
+        <div class="col-sm-8 m-auto pt-5">
+            <div class="h2 text-center">
+                About
             </div>
-            <div class="col-sm-6 mt-4">
-                <button class="btn btn-primary col" id="submit_button" onclick="fetchFact()">
-                    <div class="spinner">
-                        <div class="bounce1"></div>
-                        <div class="bounce2"></div>
-                        <div class="bounce3"></div>
-                    </div>
-                    <div class="btntext">
-                        Random Fact !
-                    </div>
-                </button>
+            <div class="display-5">
+                Find thounsands (yes you read that right) of Chuck Norris facts/jokes.
+                <br>
+                You can also find jokes according to categories.
+                You can also search jokes with our search functionality.
+                <br>
+                What are chuck norris facts? 
+                Chuck Norris facts are satirical factoids about martial artist and actor Chuck Norris that have become an Internet phenomenon and as a result have become widespread in popular culture. The 'facts' are normally absurd hyperbolic claims about Norris' toughness, attitude, virility, sophistication, and masculinity.
             </div>
         </div>
-        <div class="text-center mt-4">
-            OR
-        </div>
-        <div class="row col-lg-6 m-auto">
-            <div class="col-sm-6 mt-4">
-                <input class="form-control theme-inherit" id="searchFactInput" type="search" placeholder="Search" aria-label="Search">
-                <div id="search_error" class="text-danger">
-                </div>
+        <hr>
+        <div class="col-sm-8 m-auto pt-5">
+            <div class="h2 text-center">
+                Tips and Tricks
             </div>
-            <div class="col-sm-6 mb-4 mt-4">
-                <!-- <button class="btn col btn-primary" id="searchFactButton">Search Fact</button> -->
-                <button class="btn btn-primary col" id="searchFactButton" onclick="searchFact()">
-                    <div class="spinner">
-                        <div class="bounce1"></div>
-                        <div class="bounce2"></div>
-                        <div class="bounce3"></div>
-                    </div>
-                    <div class="btntext">
-                        Search Chuck Norris Fact
-                    </div>
-                </button>
+            <div class="display-5">
+                <ul>
+                    <li>Change theme color by clicking theme button in navigaion bar.</li>
+                    <li>Select category and get random joke of that category.</li>
+                    <li>Want to share a joke that you liked? Simply click copy button to copy joke to your clipboard.</li>
+                    <li>Want to get nearly all of chuck norris jokes? Type <strong>Chuck</strong> or <strong>Norris</strong> in search box and click search button. Also note that this will take some time.</li>
+                </ul>
             </div>
         </div>
-        <div id="randomFact" class="random-fact text-center">
-            <div class="col-lg-6 m-auto">
-                <div class="card bg-transparent">
-                    <div class="card-body">
-                        <p class="lead font-italic" id="chuckNorrisFact">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat incidunt aperiam soluta inventore, voluptas quisquam perspiciatis molestiae autem dignissimos quod."</p>
-                    </div>
-                    <div class="card-footer ">
-                        <button class="btn btn-primary" title="Copy To Clipboard" data-toggle="tooltip" onclick="copyToClipboard('#chuckNorrisFact');changeTitle(this,'Copied','Copy To Clipboard')">Copy Fact</button>
-                    </div>
-                </div>
+            
+        <hr>
+        <div class="col-sm-8 m-auto">
+            <div class="h2 text-center">
+                API
+            </div>
+            <div>
+                API used : <a href="https://api.chucknorris.io">api.chucknorris.io</a>
             </div>
         </div>
-        <div id="searchCards" class="search-cards py-4">
-            <div id="searchStatus" class="h3 text-center">
-                Search Results
+        <hr>
+        <div class="col-sm-8 m-auto">
+            <div class="h2 text-center">
+                Icon Credits
             </div>
+            <div>Facebook Icon made by <a href="https://www.flaticon.com/authors/elegant-themes" title="Elegant Themes">Elegant Themes</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+            <br>
+            <div>Instagram Icon made by <a href="https://www.flaticon.com/authors/bogdan-rosu" title="Bogdan Rosu">Bogdan Rosu</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+            <br>
+            <div>GitHub Icon made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+            <br>
+            <div>Twitter Icon made by <a href="https://www.flaticon.com/authors/bogdan-rosu" title="Bogdan Rosu">Bogdan Rosu</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
         </div>
-        <div id="searchPagination" class="text-center px-3 py-4">
-            <ul class="pagination col-lg-6 m-auto px-2">
-                <li class="page-item"><button id="pagFirst" class="page-link theme-inherit" >First</button></li>
-                <li class="page-item"><button id="pagPrev" class="page-link theme-inherit" >Prev</button></li>
-                <li class="page-item"><button id="pagNext" class="page-link theme-inherit" >Next</button></li>
-                <li class="page-item"><button id="pagLast" class="page-link theme-inherit" >Last</button></li>
-            </ul>
+        <hr>
+        <div class="col-sm-8 m-auto">
+            <small>
+                <strong>
+                    Legal disclaimer:
+                </strong>
+                This website and its creators are not affiliated with Chuck Norris, any motion picture corporation, any television corporation, parent, or affiliate corporation. All motion pictures, products, and brands mentioned on this website are the respective trademarks and copyrights of their owners. All material on this website is intended for humorous entertainment (satire ) purposes only. The content on this website is not necessarily true and should not be regarded as truth.
+            </small>
         </div>
-        
-    </div><!-- end of container -->
+    </div>
     <div class="text-center p-4 mt-4">
         <hr>
         <p class="lead ">
             Chuck Norris Facts ,
-            Made with <span style="font-size:120%;color:red">&hearts;</span> by <strong>&nbsp;S.P.D.</strong>
+            Made with <span style="font-size:120%;color:red">&hearts;</span> by <strong>&nbsp;<a href="https://github.com/sujitdhond142">S.P.D.</a></strong>
         </p>
     </div>
-
-
+    
 </body>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -182,23 +162,12 @@
 <script src="assets/js/bootstrap.min.js"></script> -->
 <script src="assets/js/main.js"></script>
 <script>
-    //global variables for pagination
-    var resultsPerPage = 10;
-    var totalRecords = 0;
-    var page = 1;
-    var totalPages = 0;
-    var records ;
-
     $(document).ready(function(){
         //run following functions after document load
-        fetchCategories();  //fetch fact categories dynamically
-        fetchFact();        //fetch a random chuck norris fact
-        $("#searchPagination").hide();  //hides pagination at start
-        $('[data-toggle="tooltip"]').tooltip(); //enables all tooltip
-        bindPaginationControl();    //bind click events to all pagination buttons
         bindThemeChangeControl();   //bind on click event to theme change buttons
         setThemeViaCookie();    // get cookie and set document theme according to cookie
     });
 
 </script>
+
 </html>

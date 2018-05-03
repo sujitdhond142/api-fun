@@ -1,18 +1,3 @@
-//global variables for pagination
-var resultsPerPage = 10;
-var totalRecords = 0;
-var page = 1;
-var totalPages = 0;
-var records ;
-
-$(document).ready(function(){
-    //run following functions after document load
-    fetchCategories();  //fetch fact categories dynamically
-    fetchFact();        //fetch a random chuck norris fact
-    $("#searchPagination").hide();  //hides pagination at start
-    $('[data-toggle="tooltip"]').tooltip(); //enables all tooltip
-    bindPaginationControl();    //bind click events to all pagination buttons
-});
 
 //fetch fact categories dynamically
 function fetchCategories(){
@@ -124,6 +109,9 @@ function searchFact(){
             $("#searchFactButton .spinner").hide();
             $("#searchFactButton .btntext").show();
 
+            // remove text from the search box
+            $("#searchFactInput").val("");
+
             if(data.total == 0){
                 // empty result
                 $('#searchStatus').text("No facts for: "+searchKey);
@@ -169,13 +157,13 @@ function createSearchCard(records,i){
     mainCardNode.classList = 'col-lg-6 m-auto py-3';
 
     var cardNode = document.createElement('div');
-    cardNode.className = 'card';
+    cardNode.classList = 'card bg-transparent';
 
     var cardBodyNode = document.createElement('div')
     cardBodyNode.className = 'card-body';
 
     var cardFooterNode = document.createElement('div')
-    cardFooterNode.classList = 'card-footer bg-white';
+    cardFooterNode.classList = 'card-footer';
 
     var paraNode = document.createElement('p');
     paraNode.classList = 'lead font-italic';
@@ -281,4 +269,70 @@ function checkPagPrev(){
     }else{
         $("#pagPrev").attr('disabled',false);
     }
+}
+
+//get theme via cookie and then set the theme
+function setThemeViaCookie(){
+    var theme = getCookieValueByName('theme');
+    if(theme != null){
+        changeTheme(theme);
+    }
+}
+
+//set cookie
+function setCookie(cookieName,value,exdays){
+    var expdate = new Date();
+    expdate.setDate(expdate.getDate()+exdays);
+    var value =escape(value)+ (exdays == null ? "" : ";expires="+expdate.toUTCString());
+    document.cookie = cookieName+"="+value;
+}
+
+//get cookie by cookie name
+function getCookieValueByName(cookieName){
+    cookieArray = document.cookie.split(';');
+    for(i=0;i<cookieArray.length;i++){
+        tempArray = cookieArray[i].split("=");
+        cname = tempArray[0];
+        cvalue = tempArray[1];
+        // console.log("cookie name : "+cname+" value : "+cvalue);
+        if(cookieName == unescape(cname)){
+            return unescape(cvalue);
+        }
+    }
+    return null;
+}
+
+// change Theme of site
+function changeTheme(themeName){
+    $("#themeChanger").removeClass();
+    if(themeName=='purple'){
+        $("#themeChanger").addClass('theme-purple');
+        themeColor = "purple";
+    }else if(themeName == 'dark'){
+        $("#themeChanger").addClass('theme-dark');
+        themeColor = "dark";
+    }else if(themeName == 'light'){
+        $("#themeChanger").addClass('theme-light');
+        themeColor = "light";
+    }else{
+        $("#themeChanger").addClass('theme-light');
+        themeColor = "light";
+    }
+    setCookie('theme',themeColor,30);
+}
+
+//add event listener to theme change buttons
+function bindThemeChangeControl(){
+    $('#themeChangeToPurple').on('click',function(){
+        changeTheme('purple');
+    });
+
+    $('#themeChangeToLight').on('click',function(){
+        changeTheme('light');
+    });
+
+    $('#themeChangeToDark').on('click',function(){
+        changeTheme('dark');
+    });
+
 }
